@@ -43,16 +43,18 @@
   init();
 
   let startTimer = () => {
-    setTimeout(() => {
-      countTimerId = target.innerHTML = countTimer;
-      if(countTimer === 1){
-        clearTimeout(countTimerId);
-        isCountFinished = true;
-        return isCountFinished;
-      }
-      countTimer--;
-      startTimer();
-    }, 1000);
+    if(!isCountFinished){
+      setTimeout(() => {
+        countTimerId = target.innerHTML = countTimer;
+        if(countTimer === 1){
+          clearTimeout(countTimerId);
+          isCountFinished = true;
+          return;
+        }
+        countTimer--;
+        startTimer();
+      }, 1000);
+    }
   }
 
   let updateTimer = () => {
@@ -77,9 +79,6 @@
   }
 
   window.addEventListener('click', () => {
-    setTimeout(() => {
-
-    });
     if(!isStarted){
       startTimer();
       setTimeout(() => {
