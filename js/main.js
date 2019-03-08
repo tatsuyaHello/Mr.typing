@@ -15,27 +15,45 @@
   let score;
   let miss;
   let timer;
+  let countTimer;
   let target = document.getElementById('target');
   let scoreLabel = document.getElementById('score');
   let missLabel = document.getElementById('miss');
   let timerLabel = document.getElementById('timer');
   let isStarted;
+  let isCountFinished;
   let timerId;
+  let countTimerId;
 
   let init = () => {
       currentWord = 'click to start';
       currentLocation = 0;
       score = 0;
       miss = 0;
-      timer =3;
+      timer = 5;
+      countTimer = 3;
       target.innerHTML = currentWord;
       scoreLabel.innerHTML = score;
       missLabel.innerHTML = miss;
       timerLabel.innerHTML = timer;
       isStarted = false;
+      isCountFinished = false;
   }
 
   init();
+
+  let startTimer = () => {
+    setTimeout(() => {
+      countTimerId = target.innerHTML = countTimer;
+      if(countTimer === 1){
+        clearTimeout(countTimerId);
+        isCountFinished = true;
+        return isCountFinished;
+      }
+      countTimer--;
+      startTimer();
+    }, 1000);
+  }
 
   let updateTimer = () => {
     setTimeout(() => {
@@ -59,10 +77,16 @@
   }
 
   window.addEventListener('click', () => {
+    setTimeout(() => {
+
+    });
     if(!isStarted){
-      isStarted = true;
-      setTarget();
-      updateTimer();
+      startTimer();
+      setTimeout(() => {
+        isStarted = true;
+        setTarget();
+        updateTimer();
+      }, 4000);
     }
   });
 
